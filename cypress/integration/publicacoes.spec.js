@@ -8,7 +8,6 @@ context('Publicações', () => {
   beforeEach(() => {
     cy.backgroundLogin();
     Publicacao.acessarPaginaDeFormulariodeNovaPublicacao();
-    cy.get('a[href*="editor"]').click();
   });
   it('Criar uma nova publicação', () => {
     const title = 'Title';

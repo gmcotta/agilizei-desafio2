@@ -4,6 +4,7 @@
   "apiUrl": "https://conduit.productionready.io/api/",
   "user": {
     "email": "gustavo-teste@email.com",
-    "password": "12345678"
+    "password": "12345678",
+    "name": "Gustavo 1"
   }
 }

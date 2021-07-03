@@ -1,12 +1,14 @@
 /// <reference types="cypress" />
+import Login from '../support/pages/login';
 
 context('Login', () => {
   it('Realizar login com sucesso', () => {
-    const { email, password } = Cypress.config().user;
-    cy.visit('login');
+    const { email, password, name } = Cypress.config().user;
+    
+    Login.acessarPagina();
+    Login.preencherCampos({ email, password });
+    Login.fazerLogin();
 
-    cy.get('input[ng-model*="email"]').type(email);
-    cy.get('input[ng-model*="password"]').type(password);
-    cy.get('button.btn-primary').click();
+    cy.get('a[ui-sref*="main"]').should('contain', name);
   });
 });
