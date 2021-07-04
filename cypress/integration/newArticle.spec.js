@@ -1,23 +1,33 @@
 /// <reference types="cypress" />
-
 import faker from 'faker';
-import NewArticlePage from '../support/pages/newArticle';
+
+import NewArticlePageObject from '../support/pages/newArticle';
+
+let newArticlePage;
 
 context('New Article', () => {
+  // Arrange
   beforeEach(() => {
-    cy.backgroundLogin();
-    NewArticlePage.accessPage();
-  });
-  it('should create a new article', () => {
     const title = 'Title';
     const description = 'Description';
     const content = faker.lorem.paragraph();
     const tag = 'Tag';
 
-    NewArticlePage.fillForm({ title, description, content, tag });
-    NewArticlePage.submitForm();
+    newArticlePage = new NewArticlePageObject( 
+      { title, description, content, tag }
+    );
+    cy.backgroundLogin();
+    newArticlePage.accessPage();
+  });
+  it('should create a new article', () => {
+    // Arrange
+    newArticlePage.interceptRoutes();
 
-    cy.get('h1').should('contain', title);
-    cy.get('div[ng-bind-html*=body] p').should('contain', content);
+    // Act
+    newArticlePage.fillForm();
+    newArticlePage.submitForm();
+
+    // Assert
+    newArticlePage.checkIfNewArticleWasCreated();
   });
 });
