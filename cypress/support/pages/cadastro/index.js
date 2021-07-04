@@ -1,16 +1,18 @@
+import el from './elements';
+
 class Cadastro {
   acessarPagina() {
     cy.visit('register');
   }
 
   preencherCampos({ name, email, password }) {
-    cy.get('input[ng-model*="username"]').type(name);
-    cy.get('input[ng-model*="email"]').type(email);
-    cy.get('input[ng-model*="password"]').type(password);
+    cy.get(el.inputUsername).type(name);
+    cy.get(el.inputEmail).type(email);
+    cy.get(el.inputPassword).type(password);
   }
 
   submeterCadastro() {
-    cy.get('button.btn-primary').click();
+    cy.get(el.buttonRegister).click();
   }
 }
 
