@@ -9,6 +9,6 @@ context('Login', () => {
     Login.preencherCampos({ email, password });
     Login.fazerLogin();
 
-    cy.get('a[ui-sref*="main"]').should('contain', name);
+    cy.get('a[ui-sref*="username"]').should('contain', name);
   });
 });
