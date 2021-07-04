@@ -13,5 +13,8 @@ context('Cadastro', () => {
     cy.get('input[ng-model*="password"]').type('12345678');
     
     cy.get('button.btn-primary').click();
+
+    cy.url().should('include', '/');
+    cy.get('a[ui-sref*="username"]').should('contain', name);
   });
 });
