@@ -1,13 +1,13 @@
 /// <reference types="cypress" />
-import Login from '../support/pages/login';
+import LoginPage from '../support/pages/login';
 
 context('Login', () => {
-  it('Realizar login com sucesso', () => {
+  it('should login successfully', () => {
     const { email, password, name } = Cypress.config().user;
     
-    Login.acessarPagina();
-    Login.preencherCampos({ email, password });
-    Login.fazerLogin();
+    LoginPage.accessPage();
+    LoginPage.fillForm({ email, password });
+    LoginPage.submitForm();
 
     cy.get('a[ui-sref*="username"]').should('contain', name);
   });

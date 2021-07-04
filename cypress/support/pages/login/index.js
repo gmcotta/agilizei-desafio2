@@ -1,16 +1,16 @@
 import el from './elements'
 
 class Login {
-  acessarPagina() {
+  accessPage() {
     cy.visit('login');
   }
 
-  preencherCampos({ email, password }) {
+  fillForm({ email, password }) {
     cy.get(el.inputEmail).type(email);
     cy.get(el.inputPassword).type(password);
   }
   
-  fazerLogin() {
+  submitForm() {
     cy.get(el.buttonLogin).click();
   }
 }

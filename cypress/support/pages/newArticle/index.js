@@ -1,20 +1,20 @@
 import el from './elements';
 
-class Publicacoes {
-  acessarPaginaDeFormulariodeNovaPublicacao() {
+class NewArticlePage {
+  accessPage() {
     cy.get(el.linkNewArticle).click();
   }
 
-  preencherFormulario({ title, description, body, tag }) {
+  fillForm({ title, description, content, tag }) {
     cy.get(el.inputTitle).type(title);
     cy.get(el.inputDescription).type(description);
-    cy.get(el.textareaContent).type(body);
+    cy.get(el.textareaContent).type(content);
     cy.get(el.inputTags).type(tag);
   }
 
-  enviarPublicacao() {
+  submitForm() {
     cy.get(el.buttonSubmit).click();
   }
 }
 
-export default new Publicacoes();
+export default new NewArticlePage();

@@ -1,19 +1,19 @@
 import el from './elements';
 
-class Cadastro {
-  acessarPagina() {
+class UserRegistrationPage {
+  accessPage() {
     cy.visit('register');
   }
 
-  preencherCampos({ name, email, password }) {
+  fillForm({ name, email, password }) {
     cy.get(el.inputUsername).type(name);
     cy.get(el.inputEmail).type(email);
     cy.get(el.inputPassword).type(password);
   }
 
-  submeterCadastro() {
+  submitForm() {
     cy.get(el.buttonRegister).click();
   }
 }
 
-export default new Cadastro();
+export default new UserRegistrationPage();
