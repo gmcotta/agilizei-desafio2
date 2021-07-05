@@ -1,19 +1,30 @@
 /// <reference types="cypress" />
 import faker from 'faker';
-import UserRegistrationPage from '../support/pages/userRegistration';
+
+import { limitNameLength } from '../support/utils/limitNameLength';
+import UserRegistrationPageObject from '../support/pages/userRegistration';
+
+const { firstName: fakerFirstName, lastName: fakerLastName } = faker.name;
+const firstName =  limitNameLength(fakerFirstName(), 9);
+const lastName = limitNameLength(fakerLastName(), 9);
+const name = `${firstName} ${lastName}`;
+const email = faker.internet.email();
+const password = '12345678';
+const userRegistrationPage = new UserRegistrationPageObject(
+  { name, email, password }
+);
 
 context('User Registration', () => {
   it('should register a new user', () => {
-    const { firstName, lastName } = faker.name;
-    const name = `${firstName()} ${lastName()}`;
-    const email = faker.internet.email();
-    const password = '12345678';
+    // Arrange
+    userRegistrationPage.accessPage();
 
-    UserRegistrationPage.accessPage();
-    UserRegistrationPage.fillForm({ name, email, password });
-    UserRegistrationPage.submitForm();
+    // Act
+    userRegistrationPage.fillForm();
+    userRegistrationPage.submitForm();
 
-    cy.url().should('include', '/');
-    cy.get('a[ui-sref*="username"]').should('contain', name);
+    // Assert
+    userRegistrationPage.checkIfUserWasCreatedSuccessfully();
+
   });
 });

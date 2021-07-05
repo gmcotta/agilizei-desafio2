@@ -13,6 +13,10 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
+/// <reference types="cypress" />
+
+import Routes from './routes';
+
 Cypress.Commands.add('backgroundLogin', () => {
   const { apiUrl, user } = Cypress.config();
   const { email, password } = user;
@@ -35,4 +39,8 @@ Cypress.Commands.add('backgroundLogin', () => {
       }
     });
   });
+});
+
+beforeEach(() => {
+  Routes.init();
 });

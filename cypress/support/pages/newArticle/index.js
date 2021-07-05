@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 import el from './elements';
+import Routes from '../../routes';
 
 class NewArticlePage {
   constructor({ title, description, content, tag }) {
@@ -25,21 +26,14 @@ class NewArticlePage {
     cy.get(el.buttonSubmit).click();
   }
 
-  interceptRoutes() {
-    cy.intercept('POST', '**/api/articles').as('POST-Articles');
-    cy.intercept('GET', '**/api/articles/title-**').as('GET-ArticlesTitle');
-    cy.intercept('GET', '**/api/articles/title-**/comments')
-      .as('GET-ArticlesTitleComments');
-  }
-
   checkIfNewArticleWasCreated() {
-    cy.wait('@POST-Articles').then(res => {
+    cy.wait(`@${Routes.alias.POST_ARTICLES}`).then(res => {
       expect(res.response.statusCode).to.eq(200);
     });
-    cy.wait('@GET-ArticlesTitle').then(res => {
+    cy.wait(`@${Routes.alias.GET_ARTICLES_TITLE}`).then(res => {
       expect(res.response.statusCode).to.eq(200);
     });
-    cy.wait('@GET-ArticlesTitleComments').then(res => {
+    cy.wait(`@${Routes.alias.GET_ARTICLES_TITLE_COMMENTS}`).then(res => {
       expect(res.response.statusCode).to.eq(200);
     });
     cy.get('h1').should('contain', this.title);

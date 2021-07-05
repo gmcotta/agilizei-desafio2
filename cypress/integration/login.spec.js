@@ -1,14 +1,19 @@
 /// <reference types="cypress" />
-import LoginPage from '../support/pages/login';
+import LoginPageObject from '../support/pages/login';
+
+const { email, password, name } = Cypress.config().user;
+const loginPage = new LoginPageObject({ email, password, name });
 
 context('Login', () => {
   it('should login successfully', () => {
-    const { email, password, name } = Cypress.config().user;
-    
-    LoginPage.accessPage();
-    LoginPage.fillForm({ email, password });
-    LoginPage.submitForm();
+    // Arrange
+    loginPage.accessPage();
 
-    cy.get('a[ui-sref*="username"]').should('contain', name);
+    // Act
+    loginPage.fillForm();
+    loginPage.submitForm();
+
+    // Assert
+    loginPage.checkIfLoginWasSuccessful();
   });
 });
