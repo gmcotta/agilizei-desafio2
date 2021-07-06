@@ -16,12 +16,20 @@ steps:
   displayName: 'Install Node.js'
 
 - script: npm ci
-  displayName: 'npm install'
+  displayName: 'Npm install'
 
 - script: npm run cy:run-electron
-  displayName: 'run tests on Electron'
+  displayName: 'Run tests on Electron'
   continueOnError: true
 
 - script: npm run cy:run-chrome
-  displayName: 'run tests on Chrome'
+  displayName: 'Run tests on Chrome'
+  continueOnError: true
+  
+- task: PublishTestResults@2
+  displayName: 'Show test results'
+  inputs:
+    testResultsFiles: '**/junit-*.xml'
+    mergeTestResults: true
+    testRunTitle: 'Agilizei desafio 2'
   continueOnError: true
